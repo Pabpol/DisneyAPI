@@ -13,11 +13,14 @@ public class GenresModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	private Long id;
-	
+	private Long id;	
+	@Column(name = "name")
 	private String name;
-	private List<FilmModel> films;
+	@Column(name ="imgUrl")
 	private String imgUrl;
+	@OneToMany(targetEntity = FilmModel.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "film_genere", referencedColumnName = "")
+	private List<FilmModel> films;
 	public Long getId() {
 		return id;
 	}
@@ -30,12 +33,10 @@ public class GenresModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<FilmModel> getFilms() {
-		return films;
-	}
-	public void setFilms(List<FilmModel> films) {
-		this.films = films;
-	}
+
+
+
+	
 	public String getImgUrl() {
 		return imgUrl;
 	}

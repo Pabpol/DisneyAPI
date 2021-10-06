@@ -1,12 +1,17 @@
 package com.AlkemyChallenge.DinseyAPI.models;
 
+
+
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,13 +23,21 @@ public class CharacterModel {
 	@Column(unique = true, nullable = false)
 	private Long id;
 	
-	
+	@Column(name = "name")
 	private String name;
+	@Column(name = "age")
 	private Integer age;
+	@Column(name = "weight")
 	private Integer weight;
+	@Column(name = "story")
 	private String story;
-	private List<FilmModel> films;
+	@Column(name = "imgURL")
 	private String imgURL;
+	
+	@ManyToMany(mappedBy = "charaters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<FilmModel> films; 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +68,8 @@ public class CharacterModel {
 	public void setStory(String story) {
 		this.story = story;
 	}
+	
+
 	public List<FilmModel> getFilms() {
 		return films;
 	}
