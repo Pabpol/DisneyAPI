@@ -1,5 +1,6 @@
-package com.AlkemyChallenge.DinseyAPI.models;
+package com.AlkemyChallenge.DinseyAPI.models.DTO;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,9 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "films")
-public class FilmModel {
+public class FilmDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	
 	@Id
@@ -32,49 +38,9 @@ public class FilmModel {
 	@Column(name = "imgUrl")
 	private String imgUrl;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<CharacterModel> charaters ;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public Date getRealeaseDAte() {
-		return realeaseDAte;
-	}
-	public void setRealeaseDAte(Date realeaseDAte) {
-		this.realeaseDAte = realeaseDAte;
-	}
-	public Integer getCalification() {
-		return calification;
-	}
-	public void setCalification(Integer calification) {
-		this.calification = calification;
-	}
-	
+	private List<CharacterDTO> charaters ;
 	
 
-	
-
-	public List<CharacterModel> getCharaters() {
-		return charaters;
-	}
-	public void setCharaters(List<CharacterModel> charaters) {
-		this.charaters = charaters;
-	}
-	public String getImgUrl() {
-		return imgUrl;
-	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
 
 
 }

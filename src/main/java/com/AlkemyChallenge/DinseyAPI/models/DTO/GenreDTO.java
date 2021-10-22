@@ -1,13 +1,18 @@
-package com.AlkemyChallenge.DinseyAPI.models;
+package com.AlkemyChallenge.DinseyAPI.models.DTO;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "geners")
-public class GenresModel {
+public class GenreDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	
 	@Id
@@ -18,32 +23,9 @@ public class GenresModel {
 	private String name;
 	@Column(name ="imgUrl")
 	private String imgUrl;
-	@OneToMany(targetEntity = FilmModel.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = FilmDTO.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "film_genere", referencedColumnName = "")
-	private List<FilmModel> films;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-
-	
-	public String getImgUrl() {
-		return imgUrl;
-	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-
+	private List<FilmDTO> films;
 
 
 }
