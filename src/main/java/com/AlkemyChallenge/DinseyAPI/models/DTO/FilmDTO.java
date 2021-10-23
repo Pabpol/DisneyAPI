@@ -32,7 +32,7 @@ public class FilmDTO implements Serializable{
 	@Column(name = "title")
 	private String title;
 	@Column(name = "realeaseDAte")
-	private Date realeaseDAte;
+	private Date realeaseDate;
 	@Column(name = "calification")
 	private Integer calification;
 	@Column(name = "imgUrl")

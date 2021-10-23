@@ -1,7 +1,16 @@
 package com.AlkemyChallenge.DinseyAPI.models.DAO;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-public interface CharacterDAO extends CrudRepository<Character, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.AlkemyChallenge.DinseyAPI.models.DTO.CharacterDTO;
+
+
+public interface CharacterDAO extends JpaRepository<CharacterDTO, Long> {
+
+	List<CharacterDTO> findByName(String name);
+	List<CharacterDTO> findByAge(Integer age);
+	
+	
 }
