@@ -2,64 +2,57 @@ package com.AlkemyChallenge.DinseyAPI.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.AlkemyChallenge.DinseyAPI.models.DAO.CharacterDAO;
-import com.AlkemyChallenge.DinseyAPI.models.DTO.CharacterDTO;
+import com.AlkemyChallenge.DinseyAPI.modelDTO.CharacterDTO;
+
+import com.AlkemyChallenge.DinseyAPI.secvices.CharacterService;
+
 
 @RestController
+@RequestMapping("/characters")
 public class CharacterController {
 
-	private final CharacterDAO characterDAO;
-
-	public CharacterController(CharacterDAO characterDAO) {
-		this.characterDAO = characterDAO;
-	}
-
-	@PostMapping("/characters")
+	@Autowired
+	CharacterService characterService;
+	
+	@PostMapping()
 	public CharacterDTO newCharacter(@RequestBody CharacterDTO newCharacterDTO) {
-		return characterDAO.save(newCharacterDTO);
+		return characterService.newCharacter(newCharacterDTO);
 	}
 
-	@RequestMapping("/characters")
+	@RequestMapping()
 	public List<CharacterDTO> all() {
-		return characterDAO.findAll();
+		return characterService.all();
 	}
 
-	@RequestMapping("/characters/{name}")
-	public List<CharacterDTO> findByName(@PathVariable String name) {
-		return characterDAO.findByName(name);
+	@RequestMapping("/name")
+	public List<CharacterDTO> findByName(@RequestParam("name") String name) {
+		return  this.characterService.findByName(name);
 	}
 
-	@RequestMapping("/characters/{age}")
-	public List<CharacterDTO> findByAge(@PathVariable Integer age) {
-		return characterDAO.findByAge(age);
+	@RequestMapping("/age")
+	public List<CharacterDTO> findByAge(@RequestParam("age") Integer age) {
+		return this.characterService.findByAge(age);
 	}
 
 	@PutMapping("/characters/{id}")
 	public CharacterDTO replaceCharacter(@RequestBody CharacterDTO newCharacterDTO, @PathVariable Long id) {
 
-		return characterDAO.findById(id).map(character -> {
-			character.setName(newCharacterDTO.getName());
-			character.setAge(newCharacterDTO.getAge());
-			character.setImgURL(newCharacterDTO.getImgURL());
-			character.setStory(newCharacterDTO.getStory());
-			character.setFilms(newCharacterDTO.getFilms());
-
-			return characterDAO.save(character);
-		}).orElseGet(() -> {
-			newCharacterDTO.setId(id);
-			return characterDAO.save(newCharacterDTO);
-		});
+		return characterService.replaceCharacter(newCharacterDTO, id);
 	}
 
-	@RequestMapping("/characters")
-	public void deleteCharacter(@PathVariable Long id) {
-		characterDAO.deleteById(id);
+	@DeleteMapping(path = "/{id}")
+	public void deleteCharacter(@PathVariable("id") Long id) {
+		characterService.deleteCharacter(id);
 	}
+	
 }

@@ -1,4 +1,4 @@
-package com.AlkemyChallenge.DinseyAPI.models.DTO;
+package com.AlkemyChallenge.DinseyAPI.modelDTO;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -37,6 +39,7 @@ public class FilmDTO implements Serializable{
 	private Integer calification;
 	@Column(name = "imgUrl")
 	private String imgUrl;
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CharacterDTO> charaters ;
 	

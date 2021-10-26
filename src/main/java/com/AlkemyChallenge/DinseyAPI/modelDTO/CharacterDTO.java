@@ -1,4 +1,4 @@
-package com.AlkemyChallenge.DinseyAPI.models.DTO;
+package com.AlkemyChallenge.DinseyAPI.modelDTO;
 
 
 
